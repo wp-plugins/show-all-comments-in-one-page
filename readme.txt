@@ -33,7 +33,8 @@ Plugin's settings will display at Settings > BT Comments
 Is this plugin prepared for multisites? Yes.
 
 == Screenshots ==
-1. screenshot.png
+
+1. screenshot-1.png
 
 
 
