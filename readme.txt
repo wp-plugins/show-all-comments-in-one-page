@@ -1,4 +1,4 @@
-=== BT Comments ===
+=== show all Comments ===
 Initial developer: http://www.biztechconsultancy.com/
 Requires at least: 3.12
 Tested up to: 4.0
@@ -31,7 +31,7 @@ Plugin's settings will display at Settings > BT Comments
 1. Copy the entire /bt-comments/ directory into your /wp-content/plugins/ directory.
 2. Activate the plugin.
 3. New Tab called BT Comments will be genereate.
-4. You can add set setting.
+4.. You can add set setting.
 5. Use short code at any pages/posts e.g.[bt_comments] 
 
 == Frequently Asked Questions ==
