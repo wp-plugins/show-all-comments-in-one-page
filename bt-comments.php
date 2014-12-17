@@ -124,7 +124,6 @@ function bt_comments_settings_page() // Admin side page options
 </form>
 </div>
 <?php } ?>
-
 <?php 
 function custom_comments() // set comments settings 
 {         
@@ -228,7 +227,7 @@ function custom_comments_template($comment, $args, $depth)  // show comments
     $GLOBALS['comment'] = $comment;
     ?>
         <li>
-                <div class="avatar"><img src="http://1.gravatar.com/avatar/9ffa9e22f76064b07bf5b21e92b7ac72?s=50&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D50&r=G"></div>
+                <div class="avatar-custom"><?php echo get_avatar( get_the_author_meta( 'ID' ), 50 ); ?></div>
                 <div class="custom-comment-wrap">
                     <h4 class="custom-comment-meta">
                         From <span class="custom-comment-author"><?php echo $comment->comment_author; ?></span> 
