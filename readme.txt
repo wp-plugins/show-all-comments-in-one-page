@@ -2,7 +2,7 @@
 Initial developer: http://www.biztechconsultancy.com/
 Requires at least: 3.12
 Tested up to: 4.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 
 Show All comments in one page with pagination and exclude post.
@@ -37,6 +37,9 @@ Is this plugin prepared for multisites? Yes.
 1. screenshot-1.png
 
 == Changelog ==
+= 1.0.3 =
+* Add upgradation notification
+
 = 1.0.2 =
 * Resolved issue for activation warning
 

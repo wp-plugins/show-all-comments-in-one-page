@@ -4,7 +4,7 @@
  * Description: Show all comments in one page.
  * Author: Biztech Consultancy pvt Ltd
  * Author URI: http://www.biztechconsultancy.com
- * Version: 1.0.2 
+ * Version: 1.0.3 
  */
  
 add_action('admin_menu', 'bt_comments_create_menu');
