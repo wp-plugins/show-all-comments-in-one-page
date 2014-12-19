@@ -43,5 +43,7 @@ Is this plugin prepared for multisites? Yes.
 = 1.0.1 =
 * Stable Version release
 
+== Upgrade Notice ==
+
 
 
