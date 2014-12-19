@@ -36,5 +36,12 @@ Is this plugin prepared for multisites? Yes.
 
 1. screenshot-1.png
 
+== Changelog ==
+= 1.0.2 =
+* Resolved issue for activation warning
+
+= 1.0.1 =
+* Stable Version release
+
 
 
