@@ -1,6 +1,7 @@
 === Show All Comments ===
-Initial developer: http://www.biztechconsultancy.com/
-Requires at least: 3.12
+Contributors: biztechc
+Tags: All Comments in one page, manage all comments in one page, show all comments, eazy comments management 
+Requires at least: 3.6.1
 Tested up to: 4.0
 Stable tag: 1.0.1
 License: GPLv2 or later
