@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BT Comments
  * Description: Show all comments in one page.
- * Author: Biztech Consultancy pvt Ltd
+ * Author: biztechc
  * Author URI: http://www.biztechconsultancy.com
  * Version: 1.0.3 
  */
