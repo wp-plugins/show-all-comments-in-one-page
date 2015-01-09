@@ -38,6 +38,9 @@ Is this plugin prepared for multisites? Yes.
 1. screenshot-1.png
 
 == Changelog ==
+= 1.0.4 =
+* Add new feature that is admin can set Avtar image.
+
 = 1.0.3 =
 * Add upgradation notification
 
