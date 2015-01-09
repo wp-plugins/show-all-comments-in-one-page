@@ -4,51 +4,49 @@
  * Description: Show all comments in one page.
  * Author: biztechc
  * Author URI: http://www.biztechconsultancy.com
- * Version: 1.0.3 
+ * Version: 1.0.4 
  */
  
 add_action('admin_menu', 'bt_comments_create_menu');
-function bt_comments_create_menu()
-{
+function bt_comments_create_menu() {
 
     //create new top-level menu
-    add_menu_page('BT Comments Settings', 'BT Comments', 'administrator', 'bt-comments', 'bt_comments_settings_page');
+    add_menu_page('Show All Comments Settings', 'Show All Comments', 'administrator', 'bt-comments', 'bt_comments_settings_page');
 
     //call register settings function
     add_action( 'admin_init', 'register_bt_comments_settings' );
 }
 
 
-function register_bt_comments_settings() 
-{
+function register_bt_comments_settings() {
     //register our settings
     register_setting( 'bt-comments-settings-group', 'bt_post_type' );
     register_setting( 'bt-comments-settings-group', 'bt_pagination' );
     register_setting( 'bt-comments-settings-group', 'bt_comments_per_page' );
     register_setting( 'bt-comments-settings-group', 'bt_exclude_post' );
+    register_setting( 'bt-comments-settings-group', 'biztech_sac_avatar' );
 }
 
-function bt_comments_settings_page() // Admin side page options
-{
+function bt_comments_settings_page() {
     
+    // Admin side page options
     $set_bt_post_type = get_option('bt_post_type');
     
-    if($set_bt_post_type == NULL)
-    {
+    if($set_bt_post_type == NULL) {
         $set_bt_post_type = Array('bt' => 'bt');
     }
     $set_bt_pagination = get_option('bt_pagination');
     $set_bt_comments_per_page = get_option('bt_comments_per_page');
     
-    if($set_bt_comments_per_page == NULL)
-    {
+    if($set_bt_comments_per_page == NULL) {
         $set_bt_comments_per_page = 10;
     }
     $set_bt_exclude_post = get_option('bt_exclude_post');
+    $set_biztech_sac_avatar = get_option('biztech_sac_avatar');
     
 ?>
 <div class="wrap">
-<h2>BT Comments Settings</h2>
+<h2>Show All Comments Settings</h2>
 
 <form method="post" action="options.php">
     <?php settings_fields( 'bt-comments-settings-group' ); ?>
@@ -66,10 +64,8 @@ function bt_comments_settings_page() // Admin side page options
                                 unset($post_types['revision']);
                                 unset($post_types['nav_menu_item']);
                                  
-                                foreach ( $post_types as $post_type ) 
-                                {
-                                    if(in_array("$post_type",$set_bt_post_type) == true)
-                                    {
+                                foreach ( $post_types as $post_type ) {
+                                    if(in_array("$post_type",$set_bt_post_type) == true) {
                                         $checked = 'checked=checked';
                                     }
                                     ?>
@@ -88,15 +84,13 @@ function bt_comments_settings_page() // Admin side page options
             <td>
                 <fieldset>
                         <?php 
-                            if($set_bt_pagination == 'yes')
-                            {
+                            if($set_bt_pagination == 'yes') {
                                 ?>
                                     <label><input type="radio"  value="yes" name="bt_pagination" checked="checked"> <span>Yes</span></label><br>
                                     <label><input type="radio"  value="no"  name="bt_pagination"> <span>No</span></label>
                                 <?php    
                             }
-                            else
-                            {
+                            else {
                                 ?>
                                     <label><input type="radio"  value="yes" name="bt_pagination"> <span>Yes</span></label><br>
                                     <label><input type="radio"  value="no"  name="bt_pagination" checked="checked"> <span>No</span></label>
@@ -117,6 +111,11 @@ function bt_comments_settings_page() // Admin side page options
             <td><input type="text" name="bt_exclude_post" value="<?php echo $set_bt_exclude_post; ?>" /> Exclude post id with comma separated. like 11,22,33</td>
         </tr>
         
+        <tr valign="top">
+            <th scope="row">Avatar Size</th>
+            <td><input type="number" class="small-text" value="<?php if($set_biztech_sac_avatar == NULL) { echo "50"; } else { echo $set_biztech_sac_avatar; }?>" id="biztech_sac_avatar" min="1" step="1" name="biztech_sac_avatar"></td>
+        </tr>
+        
     </table>
     
     <?php submit_button(); ?>
@@ -125,39 +124,34 @@ function bt_comments_settings_page() // Admin side page options
 </div>
 <?php } ?>
 <?php 
-function custom_comments() // set comments settings 
-{         
+function custom_comments() {
+    
+    // set comments settings          
     $page = intval( get_query_var( 'cpage' ) );
-    if ( 0 == $page ) 
-    {
+    if ( 0 == $page ) {
         $page = 1;
         set_query_var( 'cpage', $page );
     }
     
     $pagination = get_option('bt_pagination');
     
-    if($pagination == 'yes')
-    {
+    if($pagination == 'yes') {
        $comments_per_page = get_option('bt_comments_per_page');
     }
-    else
-    {
+    else {
         $comments_per_page = 0;
     }   
        
       $post_type = get_option('bt_post_type');
-      if($post_type != NULL)
-      {          
-            function wpse_121051( $clauses, $wpqc )
-            {
+      if($post_type != NULL) {          
+            function wpse_121051( $clauses, $wpqc ) {
                     global $wpdb;
 
                     // Remove the comments_clauses filter, we don't need it anymore. 
                     remove_filter( current_filter(), __FUNCTION__ );
 
                     // Add the multiple post type support.
-                    if( isset( $wpqc->query_vars['post_type'][0] ) )
-                    {
+                    if( isset( $wpqc->query_vars['post_type'][0] ) ) {
 
                         $join = join( "', '", array_map( 'esc_sql', $wpqc->query_vars['post_type'] ) );
 
@@ -171,24 +165,50 @@ function custom_comments() // set comments settings
             }
             add_filter( 'comments_clauses', 'wpse_121051', 10, 2 ); 
       }
-      else
-      {
-         $post_type='post'; 
+      else {
+         $post_type= array('bt'); 
       }    
     
     $exclude_post = get_option('bt_exclude_post');
     $exclude_post = explode(',',$exclude_post);
+    
+    global $wp_version;
+    if ( $wp_version >= 4.1 ) {
+        $defaults = array(
+            'order' => 'DESC',
+            'post_type' => $post_type,
+            'status' => 'approve',
+            'count' => false,
+            'post__not_in' => $exclude_post,
+            'date_query' => null
+        );
         
-    $defaults = array(
-        'order' => 'DESC',
-        'post_id' => 0,
-        'post_type' => $post_type,
-        'count' => false,
-        'number' => '',
-        'post__not_in' => $exclude_post,
-        'date_query' => null
-    );
-    $comments = get_comments( $defaults );
+        $comments = get_comments( $defaults );
+    }
+    else {
+        global $wpdb;
+       
+        $post_type = implode("','",$post_type); 
+        $post_type = "'".$post_type."'";
+       
+        $exclude_post = implode(',',$exclude_post);  
+        if($exclude_post == NULL ){
+            $exclude_post = 0;
+        }
+        
+        $getIncludePostId = $wpdb->get_results( 
+            "
+            SELECT * 
+            FROM $wpdb->comments c
+            INNER JOIN  $wpdb->posts p 
+                ON c.comment_post_ID = p.ID
+            WHERE  p.post_type IN($post_type) AND p.ID NOT IN($exclude_post) AND c.comment_approved = 1 
+            ORDER BY c.comment_ID DESC 
+            "
+        );
+        $comments = $getIncludePostId;                  
+    }
+    
     echo "<ul class=custom-comments>";
     wp_list_comments( array (
             'walker'            => null,
@@ -214,20 +234,23 @@ function custom_comments() // set comments settings
 }
 add_shortcode('bt_comments','custom_comments');
 
-function custom_comments_style() // add custom style
-{
+function custom_comments_style() {
+    
+     // add custom style 
     wp_enqueue_style( 'custom-comments', plugins_url('css/custom-comments.css', __FILE__) );
 }  
 add_action('wp_enqueue_scripts','custom_comments_style');   
 
 add_filter( 'pre_option_page_comments', '__return_true' );    
 
-function custom_comments_template($comment, $args, $depth)  // show comments
-{
+function custom_comments_template($comment, $args, $depth) {
+    
+    // show comments 
     $GLOBALS['comment'] = $comment;
+    $getAvatarSize = get_option('biztech_sac_avatar');
     ?>
         <li>
-                <div class="avatar-custom"><?php echo get_avatar( get_the_author_meta( 'ID' ), 50 ); ?></div>
+                <div class="avatar-custom"><?php echo get_avatar( $comment, $getAvatarSize ); ?></div>
                 <div class="custom-comment-wrap">
                     <h4 class="custom-comment-meta">
                         From <span class="custom-comment-author"><?php echo $comment->comment_author; ?></span> 
@@ -241,10 +264,10 @@ function custom_comments_template($comment, $args, $depth)  // show comments
 }
 
 register_uninstall_hook( __FILE__, 'bt_comments_uninstall' ); // uninstall plug-in
-function bt_comments_uninstall()
-{
+function bt_comments_uninstall() {
    delete_option('bt_post_type');
    delete_option('bt_pagination');
    delete_option('bt_comments_per_page'); 
    delete_option('bt_exclude_post');
+   delete_option('biztech_sac_avatar');
 } 

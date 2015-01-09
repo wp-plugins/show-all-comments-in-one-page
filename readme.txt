@@ -3,7 +3,7 @@ Contributors: biztechc
 Tags: All Comments in one page, manage all comments in one page, show all comments, eazy comments management 
 Requires at least: 3.6.1
 Tested up to: 4.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 
 Show All comments in one page with pagination and exclude post.
