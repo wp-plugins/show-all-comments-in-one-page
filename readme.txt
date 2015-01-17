@@ -3,7 +3,7 @@ Contributors: biztechc
 Tags: All Comments in one page, manage all comments in one page, show all comments, eazy comments management 
 Requires at least: 3.6.1
 Tested up to: 4.0
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 
 Show All comments in one page with pagination and exclude post.
@@ -38,6 +38,9 @@ Is this plugin prepared for multisites? Yes.
 1. screenshot-1.png
 
 == Changelog ==
+= 1.0.5 =
+* Solve issue.Comments will display where shortcode stands.
+
 = 1.0.4 =
 * Add new feature that is admin can set Avtar image.
 

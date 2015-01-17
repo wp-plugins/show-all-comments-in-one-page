@@ -4,7 +4,7 @@
  * Description: Show all comments in one page.
  * Author: biztechc
  * Author URI: http://www.biztechconsultancy.com
- * Version: 1.0.4 
+ * Version: 1.0.5
  */
  
 add_action('admin_menu', 'bt_comments_create_menu');
@@ -124,7 +124,7 @@ function bt_comments_settings_page() {
 </div>
 <?php } ?>
 <?php 
-function custom_comments() {
+function custom_comments($content = "") {
     
     // set comments settings          
     $page = intval( get_query_var( 'cpage' ) );
@@ -209,7 +209,8 @@ function custom_comments() {
         $comments = $getIncludePostId;                  
     }
     
-    echo "<ul class=custom-comments>";
+    $content .= "<ul class=custom-comments>";
+    ob_start();
     wp_list_comments( array (
             'walker'            => null,
             'max_depth'         => '',
@@ -226,11 +227,16 @@ function custom_comments() {
             'format'            => 'html5', 
             'short_ping'        => false 
         ), $comments );
-    echo "</ul>";  
+    $content .= ob_get_clean();    
+    $content .= "</ul>";  
     
-    echo "<div class=custom-navigation>";
+    $content .= "<div class=custom-navigation>";
+    ob_start();
     paginate_comments_links();
-    echo "</div>";
+    $content .= ob_get_clean();  
+    $content .= "</div>";
+    
+    return $content;
 }
 add_shortcode('bt_comments','custom_comments');
 
