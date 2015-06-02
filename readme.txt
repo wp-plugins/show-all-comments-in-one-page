@@ -6,7 +6,7 @@ Tested up to: 4.0
 Stable tag: 1.0.5
 License: GPLv2 or later
 
-Show All comments in one page with pagination and exclude post.
+This plugin displays all the comments received on your various posts in a single page, enabling the readers to read all the comments in a single page.
 
 == Description ==
 
